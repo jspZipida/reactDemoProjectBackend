@@ -1,5 +1,11 @@
 package com.example.demo;
 
+import com.example.demo.src.command.Command;
+import com.example.demo.src.command.StringPrintCommand;
+import com.example.demo.src.command2.ClearCommand;
+import com.example.demo.src.command2.ColorCommand;
+import com.example.demo.src.command2.MoveCommand;
+import com.example.demo.src.command2.PrintCommand;
 import com.example.demo.src.decorator.abst.IBeverage;
 import com.example.demo.src.decorator.concrete.Base;
 import com.example.demo.src.observer.Button;
@@ -10,6 +16,11 @@ import com.example.demo.src.weapon_package.Knife;
 import com.example.demo.src.weapon_package.Sword;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.management.openmbean.CompositeData;
+import java.sql.SQLOutput;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -18,6 +29,13 @@ public class DemoApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(DemoApplication.class, args);
 
+        designPatternStudy();
+
+
+
+    }
+
+    public static void designPatternStudy(){
         System.out.println("=========start=========");
 
         System.out.println("-------------스트래티지-------------");
@@ -85,7 +103,78 @@ public class DemoApplication {
         highest.say();
 
         System.out.println("-------------싱글턴-------------");
+        System.out.println("");
+        System.out.println("-------------커맨드-------------");
 
+        List<Command> list = new LinkedList<>();
+
+        /*list.add(new Command() {
+            @Override
+            public void excute() {
+                System.out.println("작업 1");
+            }
+        });
+
+        list.add(new Command() {
+            @Override
+            public void excute() {
+                System.out.println("작업 2");
+            }
+        });
+
+        list.add(new Command() {
+            @Override
+            public void excute() {
+                System.out.println("작업 3");
+            }
+        });
+
+        for (Command command : list
+             ) {
+            command.excute();
+        }*/
+
+        PriorityQueue<Command> q = new PriorityQueue<>();
+
+        q.add(new StringPrintCommand("A"));
+        q.add(new StringPrintCommand("AB"));
+        q.add(new StringPrintCommand("ABC"));
+        q.add(new StringPrintCommand("ABCD"));
+
+        for(Command command : q){
+            command.excute();
+        }
+        System.out.println("-------------커맨드2222222-------------");
+
+
+        com.example.demo.src.command2.Command clearCmd = new ClearCommand();
+        clearCmd.run();
+
+        com.example.demo.src.command2.Command yellowColorCmd = new ColorCommand(ColorCommand.Color.YELLOW);
+        yellowColorCmd.run();
+
+        com.example.demo.src.command2.Command moveCmd = new MoveCommand(10,1);
+        moveCmd.run();
+
+        com.example.demo.src.command2.Command printCmd= new PrintCommand("안녕하세요! 디자인패턴@@@@@@@@@@@@@@@@@@@@@");
+        printCmd.run();
+
+        com.example.demo.src.command2.Command moveCmd2 = new MoveCommand(15, 5);
+        moveCmd2.run();
+
+        printCmd.run();
+
+        com.example.demo.src.command2.Command moveCmd3 = new MoveCommand(15, 5);
+        moveCmd3.run();
+
+        com.example.demo.src.command2.Command greenColorCmd = new ColorCommand(ColorCommand.Color.GREEN);
+        greenColorCmd.run();
+
+        printCmd.run();
+
+
+        System.out.println("-------------커맨드-------------");
     }
+
 
 }
