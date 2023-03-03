@@ -29,8 +29,8 @@ public class DemoApplication {
     public static void main(String[] args) {
 //        SpringApplication.run(DemoApplication.class, args);
 
-        designPatternStudy();
-
+//        designPatternStudy();
+        commandPattern();
 
 
     }
@@ -176,5 +176,18 @@ public class DemoApplication {
         System.out.println("-------------커맨드-------------");
     }
 
+    public static void commandPattern(){
+
+        PriorityQueue<Command> queue = new PriorityQueue<>();
+
+        queue.add(new StringPrintCommand("A"));
+        queue.add(new StringPrintCommand("AB"));
+        queue.add(new StringPrintCommand("ABC"));
+        queue.add(new StringPrintCommand("ABCD"));
+
+        for(Command command : queue){
+            command.excute();
+        }
+    }
 
 }
